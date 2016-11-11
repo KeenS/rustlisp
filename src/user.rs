@@ -4,7 +4,7 @@ use fun::*;
 use num::*;
 use eval::*;
 
-pub type Fib = Symbol<Sym3<F, I, B>>;
+pub type Fib = symbol!(F I B);
 
 impl Fun1<_0> for Fib {
     type Out = _1;

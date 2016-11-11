@@ -63,13 +63,25 @@ macro_rules! symchars {
 }
 symchars!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z);
 
-pub type Sym1<T1: SymChar> = SymCons<T1, Eos>;
-pub type Sym2<T1: SymChar, T2: SymChar> = SymCons<T1, Sym1<T2>>;
-pub type Sym3<T1: SymChar, T2: SymChar, T3: SymChar> = SymCons<T1, Sym2<T2, T3>>;
-pub type Sym4<T1: SymChar, T2: SymChar, T3: SymChar, T4: SymChar> = SymCons<T1, Sym3<T2, T3, T4>>;
+#[macro_export]
+macro_rules! sym {
+    () => {
+        $crate::symbol::Eos
+    };
+    (,) => {
+        $crate::symbol::Eos
+    };
+    (, $t: ty $(, $tys: ty)*) => {
+        $crate::symbol::SymCons<$t , sym!($(, $tys)*)>
+    };
+    ($t: ty $(, $tys: ty)*) => {
+        $crate::symbol::SymCons<$t , sym!($(, $tys)*)>
+    };
+}
 
-
-pub type Add = Symbol<Sym3<A, D, D>>;
-pub type Mul = Symbol<Sym3<M, U, L>>;
-pub type Car = Symbol<Sym3<C, A, R>>;
-pub type Cdr = Symbol<Sym3<C, D, R>>;
+#[macro_export]
+macro_rules! symbol {
+    ($($sym:ty)*) => {
+        Symbol<sym!($(, $sym)*)>
+    };
+}

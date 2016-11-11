@@ -42,14 +42,14 @@ impl <S: Sym>Eval for Symbol<S> {
     type Out = Symbol<S>;
 }
 
-impl <S: Sym, T1: Expr, T1O: Expr, O: Expr>Eval for List2<Symbol<S>, T1>
+impl <S: Sym, T1: Expr, T1O: Expr, O: Expr>Eval for list!(Symbol<S>, T1)
     where T1: Eval<Out = T1O>,
           Symbol<S>: Fun1<T1O, Out = O>,
 {
     type Out = O;
 }
 
-impl <S: Sym, T1: Expr, T2: Expr, T1O: Expr, T2O: Expr, O: Expr>Eval for List3<Symbol<S>, T1, T2>
+impl <S: Sym, T1: Expr, T2: Expr, T1O: Expr, T2O: Expr, O: Expr>Eval for list!(Symbol<S>, T1, T2)
     where T1: Eval<Out = T1O>,
           T2: Eval<Out = T2O>,
           Symbol<S>: Fun2<T1O, T2O, Out = O>,

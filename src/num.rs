@@ -40,16 +40,6 @@ macro_rules! numty {
     }
 }
 
-// pub type _0 = Zero;
-// pub type _1 = Succ<_0>;
-// pub type _2 = Succ<_1>;
-// pub type _3 = Succ<_2>;
-// pub type _4 = Succ<_3>;
-// pub type _5 = Succ<_4>;
-// pub type _6 = Succ<_5>;
-// pub type _7 = Succ<_6>;
-// pub type _8 = Succ<_7>;
-// pub type _9 = Succ<_8>;
 pub type __0 = Zero;
 pub type _0 = Number<__0>;
 numty!(_1, __1, __0);
@@ -63,42 +53,17 @@ numty!(_8, __8, __7);
 numty!(_9, __9, __8);
 numty!(_10, __10, __9);
 
-// pub trait _Add<T1: Num, T2: Num> {
-//     type Out: Num;
-// }
 
-// impl <T1: Num>_Add<T1, Zero> for Nothing {
-//     type Out = T1;
-// }
-
-// impl <T1: Num, T2: Num>_Add<T1, Succ<T2>> for Nothing
-//     where Nothing: _Add<T1, T2> {
-//     type Out = Succ<<Nothing as _Add<T1, T2>>::Out>;
-// }
+pub type Add = symbol!(A D D);
+pub type Mul = symbol!(M U L);
 
 impl <T1: Num> Fun2<Number<T1>, _0> for Add {
     type Out = Number<T1>;
 }
 
-impl <T1: Num, T2: Num, AddO: Num> Fun2<Number<T1>, Number<Succ<T2>>> for Add
-    where Add: Fun2<Number<T1>, Number<T2>, Out = Number<AddO>> {
-    type Out = Number<Succ<AddO>>;
+impl <T1: Num, T2: Num, ON: Num> Fun2<Number<T1>, Number<Succ<T2>>> for Add
+    where Add: Fun2<Number<Succ<T1>>, Number<T2>, Out = Number<ON>> {
+    type Out = Number<ON>;
 }
 
-// impl <T1: Expr, T2: Expr> Fun2<T1, T2> for Add<T1, T2> {
-//     type Out = Stuck;
-// }
-
-// pub trait Add<T1: Num, T2: Num>{
-//     type Out: Num;
-// }
-
-// impl <T1: Num> Add<T1, Zero> for Nothing {
-//     type Out = T1;
-// }
-
-// impl <T1: Num, T2: Num> Add<T1, Succ<T2>> for Nothing
-//     where Nothing: Add<T1, T2>, {
-//     type Out = Succ<<Nothing as Add<T1, T2>>::Out>;
-// }
 
